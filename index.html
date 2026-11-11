@@ -1,65 +1,937 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-site-verification" content="rwa1X9lBSr5jx-eRLlUs0gUNB6Ztq5G5hIfJ8dgXLDE" />
-  <title>自己紹介 | あなたの名前</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 650px;
-      margin: 50px auto;
-      padding: 0 20px;
-      line-height: 1.7;
-      color: #333;
-      background-color: #f9fafb;
-    }
-    .card {
-      background: #fff;
-      padding: 35px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 1.8rem;
-      border-bottom: 2px solid #0969da;
-      padding-bottom: 10px;
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin-top: 28px;
-      color: #0969da;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    a {
-      color: #0969da;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="rwa1X9lBSr5jx-eRLlUs0gUNB6Ztq5G5hIfJ8dgXLDE" />
+    <title>Wireless Networks & Mobile Systems Laboratory | 創発的ワイヤレス通信研究室</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            purple: '#7f00ff',
+                            darkBg: '#0b0f19',
+                            cardDark: '#111827',
+                            cardBorderDark: '#1f293d',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(0, 242, 254, 0.35)',
+                        'neon-blue': '0 0 20px rgba(79, 172, 254, 0.35)',
+                        'neon-purple': '0 0 20px rgba(127, 0, 255, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities & Animations */
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .glow-text-cyan {
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #7f00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(0,242,254,0.15), rgba(127,0,255,0.15));
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 1.05rem;
+            padding: 1px;
+            background: linear-gradient(135deg, #00f2fe, #7f00ff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2fe;
+        }
+    </style>
 </head>
-<body>
-  <div class="card">
-    <h1>あなたの名前 (ハンドルネーム)</h1>
-    <p>こんにちは！Web開発やプログラミングを学んでいる〇〇です。ここに簡単な挨拶や肩書きを書きます。</p>
+<body class="bg-brand-darkBg text-slate-100 font-sans antialiased selection:bg-brand-cyan selection:text-black min-h-screen flex flex-col">
 
-    <h2>スキル・興味のあること</h2>
-    <ul>
-      <li>HTML / CSS / JavaScript</li>
-      <li>興味のある分野や趣味など</li>
-    </ul>
+    <!-- Canvas Background for Mesh Network Animation -->
+    <canvas id="network-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-60"></canvas>
 
-    <h2>SNS・リンク</h2>
-    <ul>
-      <li><a href="https://github.com" target="_blank">GitHub</a></li>
-      <li><a href="https://x.com" target="_blank">X (旧Twitter)</a></li>
-    </ul>
-  </div>
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-brand-darkBg/80 border-b border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan to-brand-purple flex items-center justify-center text-black font-bold text-xl shadow-neon-cyan group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid font-mono text-lg">W</i>
+                </div>
+                <div>
+                    <span class="text-lg font-bold tracking-wider text-white flex items-center gap-1">
+                        WNMS<span class="text-brand-cyan">LAB</span>
+                    </span>
+                    <span class="block text-xs text-slate-400 font-mono tracking-tight">Wireless Networks & Mobile Systems</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#about" class="text-slate-300 hover:text-brand-cyan transition-colors">研究室概要</a>
+                <a href="#research" class="text-slate-300 hover:text-brand-cyan transition-colors">研究テーマ</a>
+                <a href="#publications" class="text-slate-300 hover:text-brand-cyan transition-colors">研究業績</a>
+                <a href="#members" class="text-slate-300 hover:text-brand-cyan transition-colors">メンバー</a>
+                <a href="#news" class="text-slate-300 hover:text-brand-cyan transition-colors">ニュース</a>
+                <a href="#contact" class="text-slate-300 hover:text-brand-cyan transition-colors">アクセス・連絡先</a>
+            </nav>
+
+            <!-- Actions (Theme Toggle + CTA) -->
+            <div class="hidden md:flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-800/80 text-slate-300 hover:text-brand-cyan hover:bg-slate-700 transition-all">
+                    <i class="fa-solid fa-moon text-lg" id="theme-icon"></i>
+                </button>
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-black font-semibold text-sm hover:shadow-neon-cyan hover:scale-105 transition-all">
+                    配属希望の方へ
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="flex items-center space-x-3 md:hidden">
+                <button id="theme-toggle-mobile" class="p-2 text-slate-300">
+                    <i class="fa-solid fa-moon text-lg"></i>
+                </button>
+                <button id="mobile-menu-btn" class="p-2 text-slate-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 backdrop-blur-lg border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-slate-300 hover:text-brand-cyan">研究室概要</a>
+            <a href="#research" class="block py-2 text-slate-300 hover:text-brand-cyan">研究テーマ</a>
+            <a href="#publications" class="block py-2 text-slate-300 hover:text-brand-cyan">研究業績</a>
+            <a href="#members" class="block py-2 text-slate-300 hover:text-brand-cyan">メンバー</a>
+            <a href="#news" class="block py-2 text-slate-300 hover:text-brand-cyan">ニュース</a>
+            <a href="#contact" class="block py-2 text-slate-300 hover:text-brand-cyan">アクセス・連絡先</a>
+            <a href="#contact" class="block w-full text-center mt-4 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-black font-semibold">配属希望の方へ</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow z-10 relative">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-[90vh] flex items-center justify-center pt-12 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div class="max-w-5xl mx-auto text-center relative z-10">
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-slate-800/80 border border-brand-cyan/30 text-brand-cyan text-xs font-mono mb-8 backdrop-blur-md shadow-neon-cyan/20">
+                    <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+                    <span>NEXT-GENERATION WIRELESS INNOVATION</span>
+                </div>
+
+                <!-- Main Title -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
+                    限界を超える通信で、<br>
+                    <span class="gradient-text glow-text-cyan">未来の社会基盤</span>を創り出す。
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+                    当研究室（WNMS Lab）は、Beyond 6G/7G超高速通信、AI駆動型周波数制御、宇宙・ドローン・メッシュネットワーク、IoTエッジコンピューティングの融合領域を開拓する先端情報通信ラボです。
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                    <a href="#research" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-purple text-black font-bold text-base hover:shadow-neon-cyan hover:scale-105 transition-all flex items-center justify-center space-x-2">
+                        <span>研究テーマを見る</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#publications" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-brand-cyan text-white font-semibold text-base backdrop-blur-md hover:bg-slate-700/80 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-file-lines text-brand-cyan"></i>
+                        <span>最新論文・成果</span>
+                    </a>
+                </div>
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 max-w-4xl mx-auto">
+                    <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm">
+                        <div class="text-3xl font-bold font-mono text-brand-cyan">100+</div>
+                        <div class="text-xs text-slate-400 mt-1">学術論文・採択実績</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm">
+                        <div class="text-3xl font-bold font-mono text-brand-blue">15+</div>
+                        <div class="text-xs text-slate-400 mt-1">産学官連携プロジェクト</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm">
+                        <div class="text-3xl font-bold font-mono text-purple-400">99.9%</div>
+                        <div class="text-xs text-slate-400 mt-1">超低遅延・高信頼要求</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm">
+                        <div class="text-3xl font-bold font-mono text-emerald-400">20+</div>
+                        <div class="text-xs text-slate-400 mt-1">在籍研究員・学生</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-brand-cyan text-sm font-mono tracking-widest uppercase block mb-2">ABOUT OUR LAB</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-white">情報通信の理論から<br>リアルワールド実装まで</h2>
+                        <p class="text-slate-300 leading-relaxed mb-6">
+                            Wireless Networks & Mobile Systems Laboratory（ワイヤレスネットワーク＆モバイルシステム研究室）では、電波伝搬モデル化・通信プロトコル設計・機械学習を横断し、次世代の広域・高密度ワイヤレスインフラの研究を行っています。
+                        </p>
+                        <p class="text-slate-400 leading-relaxed mb-8">
+                            当ラボの特徴は、数理理論の証明にとどまらず、SDR（ソフトウェア無線）を用いた実機プロトタイプ構築や、フィールド実証実験を重視している点です。自動運転、遠隔医療、宇宙データ通信の基盤技術を確立します。
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 rounded-lg bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan shrink-0 mt-1">
+                                    <i class="fa-solid fa-microchip"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">ソフトウェア無線（SDR）テストベッド</h4>
+                                    <p class="text-xs text-slate-400">USRPやFPGAを用いたリアルタイム信号処理・プロトコル実装環境。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center text-brand-blue shrink-0 mt-1">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-white">深層強化学習による自律周波数制御</h4>
+                                    <p class="text-xs text-slate-400">電波環境の動的変化に対応するリアルタイムAI最適化エンジンの開発。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Interactive Graphic Placeholder / Code Card -->
+                    <div class="gradient-border p-6 bg-slate-900/90 rounded-2xl shadow-2xl">
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                            <div class="flex space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                            </div>
+                            <span class="text-xs font-mono text-slate-500">spectrum_optimizer.py</span>
+                        </div>
+                        <pre class="font-mono text-xs sm:text-sm text-slate-300 overflow-x-auto leading-relaxed">
+<span class="text-purple-400">import</span> torch
+<span class="text-purple-400">from</span> wnms_lab <span class="text-purple-400">import</span> SpectrumManager, MeshNode
+
+<span class="text-slate-500"># 6G/7G Dynamic Spectrum Allocation Simulation</span>
+<span class="text-blue-400">class</span> <span class="text-yellow-300">AISpectrumScheduler</span>:
+    <span class="text-blue-400">def</span> <span class="text-green-400">__init__</span>(self, num_channels=<span class="text-orange-400">128</span>):
+        self.manager = SpectrumManager(channels=num_channels)
+        self.agent = torch.load(<span class="text-emerald-300">"models/rl_spectrum_v4.pt"</span>)
+
+    <span class="text-blue-400">def</span> <span class="text-green-400">optimize_throughput</span>(self, active_nodes):
+        state = self.manager.get_channel_state_information()
+        action = self.agent.predict(state)
+        <span class="text-purple-400">return</span> self.manager.allocate_power_and_beam(action)
+
+<span class="text-slate-500"># System initialized. Target latency: < 1.0ms</span>
+print(<span class="text-emerald-300">"[WNMS-Lab] Spectrum Optimizer Active."</span>)
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEARCH TOPICS SECTION -->
+        <section id="research" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-cyan text-sm font-mono tracking-widest uppercase block mb-2">RESEARCH AREAS</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">主軸となる研究テーマ</h2>
+                    <p class="text-slate-400">最先端のワイヤレス通信技術からネットワークシステムアーキテクチャまで、多角的な領域で研究を展開しています。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Research Card 1 -->
+                    <div class="group p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-brand-cyan/50 hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-blue-600/20 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-tower-cell"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-brand-cyan transition-colors">Beyond 6G / 7G 無線通信</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            テラヘルツ波（THz帯）通信、超大規模MIMO、Reconfigurable Intelligent Surfaces (RIS) を活用した超高速・大容量伝送制御。
+                        </p>
+                        <span class="text-xs font-mono text-brand-cyan/80 flex items-center gap-1">
+                            <span>Explore Details</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+
+                    <!-- Research Card 2 -->
+                    <div class="group p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-brand-blue/50 hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-blue/20 to-indigo-600/20 border border-brand-blue/30 flex items-center justify-center text-brand-blue text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-brand-blue transition-colors">AI駆動型 スペクトラム制御</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            深層強化学習や連合学習（Federated Learning）を用いた動的周波数共有、干渉軽減、およびリアルタイムリソース割り当て。
+                        </p>
+                        <span class="text-xs font-mono text-brand-blue/80 flex items-center gap-1">
+                            <span>Explore Details</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+
+                    <!-- Research Card 3 -->
+                    <div class="group p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-purple-500/50 hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-satellite"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">非地上系ネットワーク (NTN)</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            低軌道衛星（LEO）、HAPS（高高度プラットフォーム）、ドローンネットワークを統合した超広域3次元無線アクセス基盤。
+                        </p>
+                        <span class="text-xs font-mono text-purple-400/80 flex items-center gap-1">
+                            <span>Explore Details</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+
+                    <!-- Research Card 4 -->
+                    <div class="group p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wifi"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">ISAC (統合センシング＆通信)</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            電波を用いて通信を行いながら同時に周りの環境・移動体を高精度にミリ波・レーダーセンシングする統合通信設計。
+                        </p>
+                        <span class="text-xs font-mono text-emerald-400/80 flex items-center gap-1">
+                            <span>Explore Details</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+
+                    <!-- Research Card 5 -->
+                    <div class="group p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/50 hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Ultra-Low Latency & IoT Edge</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            超低遅延（1ms以下）・超高信頼（URLLC）通信と、マルチアクセス・エッジコンピューティング（MEC）連携。
+                        </p>
+                        <span class="text-xs font-mono text-amber-400/80 flex items-center gap-1">
+                            <span>Explore Details</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+
+                    <!-- Research Card 6 -->
+                    <div class="group p-8 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-pink-500/50 hover:bg-slate-900/90 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-600/20 border border-pink-500/30 flex items-center justify-center text-pink-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-400 transition-colors">ワイヤレスセキュリティ & PLS</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            物理層セキュリティ（Physical Layer Security）と耐量子暗号を応用した次世代セキュア無線ネットワーク。
+                        </p>
+                        <span class="text-xs font-mono text-pink-400/80 flex items-center gap-1">
+                            <span>Explore Details</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PUBLICATIONS SECTION -->
+        <section id="publications" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/30">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="text-brand-cyan text-sm font-mono tracking-widest uppercase block mb-2">PUBLICATIONS</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-white">主要研究成果・論文</h2>
+                    </div>
+                    
+                    <!-- Search & Filter Bar -->
+                    <div class="mt-6 md:mt-0 flex flex-col sm:flex-row gap-4">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                            <input type="text" id="pub-search" placeholder="キーワード検索..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-brand-cyan transition-colors">
+                        </div>
+                        <div class="flex rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs font-medium">
+                            <button class="pub-filter-btn active px-3 py-1.5 rounded-lg text-slate-300 transition-all" data-filter="all">All</button>
+                            <button class="pub-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all" data-filter="journal">Journal</button>
+                            <button class="pub-filter-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all" data-filter="conference">Conference</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Publications List Container -->
+                <div class="space-y-4" id="publications-list">
+                    
+                    <!-- Item 1 -->
+                    <div class="pub-item p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all" data-category="journal">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                            <span class="px-2.5 py-1 rounded-md bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan text-xs font-mono w-max">IEEE JSAC 2026</span>
+                            <span class="text-xs text-slate-500 font-mono">Vol. 44, No. 2, pp. 1024-1038</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">
+                            Deep Reinforcement Learning for Dynamic Terahertz Spectrum Allocation in Dense Urban 6G Networks
+                        </h3>
+                        <p class="text-sm text-slate-400 mb-4">
+                            Kenji Sato, Alex Chen, and Hiroshi Tanaka
+                        </p>
+                        <div class="flex items-center space-x-4 text-xs font-mono">
+                            <a href="#" class="text-brand-cyan hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-file-pdf"></i> PDF
+                            </a>
+                            <a href="#" class="text-slate-400 hover:text-white flex items-center gap-1">
+                                <i class="fa-solid fa-link"></i> DOI: 10.1109/JSAC.2026.109283
+                            </a>
+                            <button onclick="copyBibtex('bib1')" class="text-slate-400 hover:text-white flex items-center gap-1">
+                                <i class="fa-solid fa-quote-right"></i> BibTeX
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="pub-item p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all" data-category="conference">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                            <span class="px-2.5 py-1 rounded-md bg-brand-blue/10 border border-brand-blue/30 text-brand-blue text-xs font-mono w-max">IEEE INFOCOM 2025</span>
+                            <span class="text-xs text-slate-500 font-mono">London, UK</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">
+                            Real-Time Joint Integrated Sensing and Communication (ISAC) using mmWave SDR Platforms
+                        </h3>
+                        <p class="text-sm text-slate-400 mb-4">
+                            Yuki Takahashi, Kenji Sato, and Elena Rostova
+                        </p>
+                        <div class="flex items-center space-x-4 text-xs font-mono">
+                            <a href="#" class="text-brand-cyan hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-file-pdf"></i> PDF
+                            </a>
+                            <a href="#" class="text-slate-400 hover:text-white flex items-center gap-1">
+                                <i class="fa-solid fa-code"></i> Code
+                            </a>
+                            <button onclick="copyBibtex('bib2')" class="text-slate-400 hover:text-white flex items-center gap-1">
+                                <i class="fa-solid fa-quote-right"></i> BibTeX
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="pub-item p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition-all" data-category="journal">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                            <span class="px-2.5 py-1 rounded-md bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan text-xs font-mono w-max">IEEE Transactions on Wireless Communications</span>
+                            <span class="text-xs text-slate-500 font-mono">2025</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">
+                            RIS-Assisted LEO Satellite Backhaul Networks: Channel Estimation and Beamforming Optimization
+                        </h3>
+                        <p class="text-sm text-slate-400 mb-4">
+                            Alex Chen and Kenji Sato
+                        </p>
+                        <div class="flex items-center space-x-4 text-xs font-mono">
+                            <a href="#" class="text-brand-cyan hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-file-pdf"></i> PDF
+                            </a>
+                            <button onclick="copyBibtex('bib3')" class="text-slate-400 hover:text-white flex items-center gap-1">
+                                <i class="fa-solid fa-quote-right"></i> BibTeX
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMBERS SECTION -->
+        <section id="members" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-cyan text-sm font-mono tracking-widest uppercase block mb-2">LAB MEMBERS</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">研究室メンバー</h2>
+                    <p class="text-slate-400">多様なバックグラウンドを持つ研究者と学生が協働しています。</p>
+                </div>
+
+                <!-- Professor Profile Highlight -->
+                <div class="mb-16 p-8 rounded-3xl bg-slate-900/80 border border-brand-cyan/30 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+                    <div class="w-36 h-36 rounded-2xl overflow-hidden shrink-0 border-2 border-brand-cyan shadow-neon-cyan/50">
+                        <img src="https://placehold.co/300x300/1e293b/00f2fe?text=Prof.+Sato" alt="佐藤 健二 教授" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <div class="inline-block px-3 py-1 rounded-full bg-brand-cyan/10 text-brand-cyan text-xs font-mono mb-2">PROFESSOR / LAB DIRECTOR</div>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2">佐藤 健二 (Kenji Sato, Ph.D.)</h3>
+                        <p class="text-sm text-brand-blue font-mono mb-4">専門：Beyond 6G情報通信・AI周波数制御・確率幾何学</p>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            IEEE Fellow。大手通信事業者研究所を経て本学教授。次世代移動体通信の標準化アライアンス幹事を務め、産業界と密に連携した研究開発を指揮。
+                        </p>
+                        <div class="flex items-center justify-center md:justify-start space-x-4 text-slate-400">
+                            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="fa-brands fa-x-twitter text-lg"></i></a>
+                            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="fa-solid fa-graduation-cap text-lg"></i></a>
+                            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students & Researcher Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Member 1 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+                        <img src="https://placehold.co/200x200/1e293b/4facfe?text=A.+Chen" alt="Alex Chen" class="w-20 h-20 rounded-full mx-auto mb-4 border border-slate-700">
+                        <span class="text-xs font-mono text-purple-400">Postdoctoral Researcher</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Alex Chen</h4>
+                        <p class="text-xs text-slate-400 mt-2">LEO Satellite Mesh & RIS Beamforming</p>
+                    </div>
+
+                    <!-- Member 2 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+                        <img src="https://placehold.co/200x200/1e293b/00f2fe?text=Y.+Takahashi" alt="高橋 悠樹" class="w-20 h-20 rounded-full mx-auto mb-4 border border-slate-700">
+                        <span class="text-xs font-mono text-brand-cyan">Doctoral Student (D3)</span>
+                        <h4 class="text-lg font-bold text-white mt-1">高橋 悠樹</h4>
+                        <p class="text-xs text-slate-400 mt-2">ISAC & mmWave SDR Implementation</p>
+                    </div>
+
+                    <!-- Member 3 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+                        <img src="https://placehold.co/200x200/1e293b/a855f7?text=E.+Rostova" alt="Elena Rostova" class="w-20 h-20 rounded-full mx-auto mb-4 border border-slate-700">
+                        <span class="text-xs font-mono text-brand-blue">Master's Student (M2)</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Elena Rostova</h4>
+                        <p class="text-xs text-slate-400 mt-2">URLLC Edge Scheduling using DRL</p>
+                    </div>
+
+                    <!-- Member 4 -->
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-center hover:border-slate-700 transition-all">
+                        <img src="https://placehold.co/200x200/1e293b/10b981?text=S.+Suzuki" alt="鈴木 拓海" class="w-20 h-20 rounded-full mx-auto mb-4 border border-slate-700">
+                        <span class="text-xs font-mono text-emerald-400">Undergraduate (B4)</span>
+                        <h4 class="text-lg font-bold text-white mt-1">鈴木 拓海</h4>
+                        <p class="text-xs text-slate-400 mt-2">Drone Network Routing Protocol</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS & EVENTS SECTION -->
+        <section id="news" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-cyan text-sm font-mono tracking-widest uppercase block mb-2">NEWS & EVENTS</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">お知らせ・ニュース</h2>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-6">
+                    
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-xs font-mono text-slate-500 shrink-0">2026.11.01</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs shrink-0">AWARD</span>
+                            <a href="#" class="text-sm font-medium text-white hover:text-brand-cyan transition-colors">D3の高橋悠樹君がIEEE Globecom国際会議にてBest Paper Awardを受賞しました。</a>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-slate-600 text-xs hidden sm:block"></i>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-xs font-mono text-slate-500 shrink-0">2026.10.15</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/30 text-xs shrink-0">PRESS</span>
+                            <a href="#" class="text-sm font-medium text-white hover:text-brand-cyan transition-colors">NEDO「次世代ワイヤレス通信AI基盤構築」事業に当ラボ提案が採択されました。</a>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-slate-600 text-xs hidden sm:block"></i>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-xs font-mono text-slate-500 shrink-0">2026.09.01</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/30 text-xs shrink-0">INFO</span>
+                            <a href="#" class="text-sm font-medium text-white hover:text-brand-cyan transition-colors">来年度の配属希望者向け研究室見学会（オープンラボ）日程を掲載しました。</a>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-slate-600 text-xs hidden sm:block"></i>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT & ACCESS SECTION -->
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    
+                    <!-- Contact Form -->
+                    <div class="p-8 rounded-3xl bg-slate-900/80 border border-slate-800">
+                        <h3 class="text-2xl font-bold text-white mb-2">お問い合わせ・見学申し込み</h3>
+                        <p class="text-sm text-slate-400 mb-6">共同研究、研究室見学、配属相談などお気軽にご連絡ください。</p>
+
+                        <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); handleFormSubmit();">
+                            <div>
+                                <label class="block text-xs font-mono text-slate-400 mb-1">お名前</label>
+                                <input type="text" required placeholder="山田 太郎" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-400 mb-1">メールアドレス</label>
+                                <input type="email" required placeholder="example@university.ac.jp" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-400 mb-1">お問い合わせ種別</label>
+                                <select class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                                    <option>配属・進学に関する相談（学生）</option>
+                                    <option>共同研究・受託研究（企業・機関）</option>
+                                    <option>取材・その他</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-slate-400 mb-1">メッセージ</label>
+                                <textarea rows="4" required placeholder="ご質問や希望日時をご記入ください..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-brand-cyan transition-colors"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-black font-bold text-sm hover:shadow-neon-cyan transition-all">
+                                送信する
+                            </button>
+                        </form>
+                        <div id="form-response" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
+                            メッセージを受け付けました。担当者より折り返しご連絡いたします。
+                        </div>
+                    </div>
+
+                    <!-- Access Information -->
+                    <div class="flex flex-col justify-between space-y-8">
+                        <div>
+                            <span class="text-brand-cyan text-sm font-mono tracking-widest uppercase block mb-2">ACCESS & LOCATION</span>
+                            <h3 class="text-2xl font-bold text-white mb-4">ラボへのアクセス</h3>
+                            <div class="space-y-4 text-slate-300 text-sm">
+                                <p class="flex items-start space-x-3">
+                                    <i class="fa-solid fa-location-dot text-brand-cyan mt-1"></i>
+                                    <span>〒100-0000<br>東京都千代田区神田1-2-3<br>イノベーションキャンパス 情報理工学部棟 6階 602号室</span>
+                                </p>
+                                <p class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-train text-brand-cyan"></i>
+                                    <span>JR山手線・京浜東北線「秋葉原駅」徒歩7分</span>
+                                </p>
+                                <p class="flex items-center space-x-3">
+                                    <i class="fa-solid fa-envelope text-brand-cyan"></i>
+                                    <span>contact@wnms-lab.ac.jp</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Styled Map Mock -->
+                        <div class="w-full h-64 rounded-3xl bg-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center">
+                            <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#00f2fe_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="w-12 h-12 rounded-full bg-brand-cyan/20 border border-brand-cyan flex items-center justify-center text-brand-cyan mx-auto mb-2 shadow-neon-cyan animate-bounce">
+                                    <i class="fa-solid fa-location-dot text-xl"></i>
+                                </div>
+                                <span class="text-xs font-mono text-slate-300 bg-slate-950/80 px-3 py-1 rounded-full border border-slate-800">
+                                    WNMS Lab Building 6F
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 font-mono">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                &copy; 2026 Wireless Networks & Mobile Systems Laboratory. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-brand-cyan">Privacy Policy</a>
+                <a href="#" class="hover:text-brand-cyan">University Home</a>
+                <a href="#" class="hover:text-brand-cyan">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        /* ----------------------------------------------------
+           1. CANVAS BACKGROUND: WIRELESS MESH NETWORK ANIMATION
+           ---------------------------------------------------- */
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        let nodes = [];
+        let pulses = [];
+        const NODE_COUNT = Math.floor(width / 25);
+        const MAX_DISTANCE = 160;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initNodes();
+        });
+
+        class Node {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2 + 1.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#00f2fe';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#00f2fe';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        class Pulse {
+            constructor(startNode, endNode) {
+                this.startX = startNode.x;
+                this.startY = startNode.y;
+                this.endX = endNode.x;
+                this.endY = endNode.y;
+                this.progress = 0;
+                this.speed = Math.random() * 0.03 + 0.015;
+            }
+
+            update() {
+                this.progress += this.speed;
+            }
+
+            draw() {
+                const currentX = this.startX + (this.endX - this.startX) * this.progress;
+                const currentY = this.startY + (this.endY - this.startY) * this.progress;
+
+                ctx.beginPath();
+                ctx.arc(currentX, currentY, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f2fe';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function initNodes() {
+            nodes = [];
+            for (let i = 0; i < NODE_COUNT; i++) {
+                nodes.push(new Node());
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Update & Draw Nodes
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+
+            // Connect nearby nodes & randomly trigger packet pulses
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < MAX_DISTANCE) {
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        const alpha = (1 - dist / MAX_DISTANCE) * 0.25;
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+
+                        // Random probability to spawn data pulse
+                        if (Math.random() < 0.0003) {
+                            pulses.push(new Pulse(nodes[i], nodes[j]));
+                        }
+                    }
+                }
+            }
+
+            // Update & Draw Pulses
+            for (let i = pulses.length - 1; i >= 0; i--) {
+                pulses[i].update();
+                pulses[i].draw();
+                if (pulses[i].progress >= 1) {
+                    pulses.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        initNodes();
+        animateCanvas();
+
+
+        /* ----------------------------------------------------
+           2. MOBILE MENU & DARK/LIGHT THEME TOGGLE
+           ---------------------------------------------------- */
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-lg';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-lg text-amber-400';
+            }
+        });
+
+
+        /* ----------------------------------------------------
+           3. PUBLICATIONS FILTER & SEARCH LOGIC
+           ---------------------------------------------------- */
+        const pubFilterBtns = document.querySelectorAll('.pub-filter-btn');
+        const pubItems = document.querySelectorAll('.pub-item');
+        const pubSearchInput = document.getElementById('pub-search');
+
+        function filterPublications() {
+            const activeFilter = document.querySelector('.pub-filter-btn.active').dataset.filter;
+            const searchTerm = pubSearchInput.value.toLowerCase();
+
+            pubItems.forEach(item => {
+                const categoryMatch = activeFilter === 'all' || item.dataset.category === activeFilter;
+                const textMatch = item.textContent.toLowerCase().includes(searchTerm);
+
+                if (categoryMatch && textMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        pubFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                pubFilterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-slate-800', 'text-white');
+                    b.classList.add('text-slate-400');
+                });
+                btn.classList.add('active', 'bg-slate-800', 'text-white');
+                btn.classList.remove('text-slate-400');
+                filterPublications();
+            });
+        });
+
+        pubSearchInput.addEventListener('input', filterPublications);
+
+
+        /* ----------------------------------------------------
+           4. HELPER INTERACTION FUNCTIONS
+           ---------------------------------------------------- */
+        function copyBibtex(id) {
+            const sampleBibtex = `@article{sato2026deep,
+  title={Deep Reinforcement Learning for Dynamic Terahertz Spectrum Allocation in Dense Urban 6G Networks},
+  author={Sato, Kenji and Chen, Alex and Tanaka, Hiroshi},
+  journal={IEEE Journal on Selected Areas in Communications},
+  volume={44},
+  number={2},
+  pages={1024--1038},
+  year={2026}
+}`;
+            navigator.clipboard.writeText(sampleBibtex).then(() => {
+                alert('BibTeX エントリをクリップボードにコピーしました！');
+            });
+        }
+
+        function handleFormSubmit() {
+            document.getElementById('contact-form').reset();
+            const responseBox = document.getElementById('form-response');
+            responseBox.classList.remove('hidden');
+            setTimeout(() => {
+                responseBox.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
