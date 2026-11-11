@@ -39,63 +39,7 @@
 <body class="bg-white text-slate-800 font-sans antialiased selection:bg-brand-100 selection:text-brand-700">
 
   <!-- ================= HEADER / NAVIGATION ================= -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      
-      <!-- 研究室ロゴ & タイトル -->
-      <a href="index.html" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 transition-transform group-hover:scale-105">
-          <!-- ワイヤレス/ネットワークアイコン (SVG) -->
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
-          </svg>
-        </div>
-        <div>
-          <span class="block text-lg font-bold tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">
-            Wireless Networking Laboratory
-          </span>
-          <span class="block text-xs font-medium text-slate-400">ワイヤレスネットワーク研究室（濵村研究室）</span>
-        </div>
-      </a>
-
-      <!-- デスクトップ用 ナビゲーションメニュー -->
-      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
-        <a href="index.html" class="px-4 py-2 text-sm font-semibold text-brand-600 bg-brand-50 rounded-lg">Home</a>
-        <a href="research.html" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition-colors">Research</a>
-        <a href="members.html" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition-colors">Members</a>
-        <a href="publications.html" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition-colors">Publications</a>
-        <a href="access.html" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition-colors">Access</a>
-        
-        <!-- コンタクト/配属希望者用ボタン -->
-        <a href="#prospective" class="ml-3 px-4 py-2 text-sm font-semibold text-white bg-slate-900 hover:bg-brand-600 rounded-lg shadow-sm transition-all duration-200">
-          配属希望の方へ
-        </a>
-      </nav>
-
-      <!-- モバイル用 ハンバーガーボタン -->
-      <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 text-slate-600 hover:text-brand-600 focus:outline-none" aria-label="Toggle Menu">
-        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-
-    </div>
-
-    <!-- モバイル用 メニュー領域 -->
-    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-2">
-      <a href="index.html" class="block px-3 py-2 text-base font-semibold text-brand-600 bg-brand-50 rounded-lg">Home</a>
-      <a href="research.html" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg">Research</a>
-      <a href="members.html" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg">Members</a>
-      <a href="publications.html" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg">Publications</a>
-      <a href="access.html" class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg">Access</a>
-      <a href="#prospective" class="block text-center mt-4 px-4 py-2.5 text-base font-semibold text-white bg-brand-600 rounded-lg shadow-sm">
-        配属希望の方へ
-      </a>
-    </div>
-  </header>
+  <div id="header-placeholder"></div>
 
   <!-- ================= HERO SECTION (WITH NETWORK CANVAS) ================= -->
   <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden hero-bg-overlay">
@@ -259,57 +203,9 @@
 
 
   <!-- ================= FOOTER ================= -->
-  <footer class="bg-white border-t border-slate-200 py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-        
-        <!-- 研究室名 & 概要 -->
-        <div class="md:col-span-2">
-          <a href="index.html" class="flex items-center gap-2 mb-4">
-            <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-sm">
-              W
-            </div>
-            <span class="text-base font-bold text-slate-900">ワイヤレスネットワーク研究室（濵村研究室）</span>
-          </a>
-          <p class="text-xs text-slate-500 leading-relaxed max-w-sm mb-4">
-            高知工科大学 情報学群 / 大学院 工学研究科基盤工学専攻 情報学コース<br>
-            〒782-8502 高知県香美市土佐山田町宮ノ口 185 (香美キャンパス A棟3階 A314室)
-          </p>
-          <p class="text-xs text-slate-400">
-            Email: contact [at] wnet.lab.ac.jp
-          </p>
-        </div>
+  <div id="footer-placeholder"></div>
 
-        <!-- リンク列 1 -->
-        <div>
-          <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Navigation</h4>
-          <ul class="space-y-2 text-xs text-slate-600">
-            <li><a href="index.html" class="hover:text-brand-600">Home</a></li>
-            <li><a href="research.html" class="hover:text-brand-600">Research</a></li>
-            <li><a href="members.html" class="hover:text-brand-600">Members</a></li>
-            <li><a href="publications.html" class="hover:text-brand-600">Publications</a></li>
-            <li><a href="access.html" class="hover:text-brand-600">Access</a></li>
-          </ul>
-        </div>
-
-        <!-- リンク列 2 -->
-        <div>
-          <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Links</h4>
-          <ul class="space-y-2 text-xs text-slate-600">
-            <li><a href="https://www.kochi-tech.ac.jp/" class="hover:text-brand-600">高知工科大学 ホームページ</a></li>
-            <li><a href="https://www.info.kochi-tech.ac.jp/" class="hover:text-brand-600">情報学群 ホームページ</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400">
-        <p>&copy; 2026 Wireless Networking Laboratory. All rights reserved.</p>
-        <p class="mt-2 sm:mt-0">Hosted on GitHub Pages</p>
-      </div>
-    </div>
-  </footer>
-
+  <script src="assets/js/components.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
