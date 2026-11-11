@@ -1,0 +1,33 @@
+    /* 共通アニメーション & カスタムスタイル */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(229, 231, 235, 0.8);
+    }
+    
+    .green-gradient-text {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ヒーロー領域のグラデーションオーバーレイ */
+    .hero-bg-overlay {
+      background: radial-gradient(circle at 50% 30%, rgba(16, 185, 129, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+    }
+
+    /* カスタムスクロールバー */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
