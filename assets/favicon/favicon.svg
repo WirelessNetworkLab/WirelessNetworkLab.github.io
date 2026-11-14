@@ -1,0 +1,16 @@
+<svg xmlns="http://w3.org" viewBox="0 0 100 100">
+  <!-- 薄いエメラルドグリーンの丸型背景 -->
+  <circle cx="50" cy="50" r="48" fill="#ccf5e1"/>
+  
+  <!-- イタリック体の H と L を重ねた図形 -->
+  <g transform="skewX(-12)" transform-origin="50 50" fill="#000000">
+    <!-- H -->
+    <rect x="30" y="28" width="7" height="44"/>
+    <rect x="55" y="28" width="7" height="44"/>
+    <rect x="30" y="46" width="32" height="7"/>
+    
+    <!-- L（Hより少し大きく中央に重ねる） -->
+    <rect x="42.5" y="21" width="7" height="53"/>
+    <rect x="42.5" y="67" width="28" height="7"/>
+  </g>
+</svg>
