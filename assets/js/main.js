@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ctx.stroke();
 
               // 低い確率でパケットを発生
-              if (Math.random() < 0.0008) {
+              if (Math.random() < 0.0005) { // 8
                 packets.push(new Packet(nodes[i], nodes[j]));
               }
             }
